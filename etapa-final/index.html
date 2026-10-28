@@ -19,6 +19,8 @@
         <a class="text-white text-decoration-none" href="#formulario">Formulário</a>
         <a class="text-white text-decoration-none" href="#get">Teste GET</a>
         <a class="text-white text-decoration-none" href="#post">Teste POST</a>
+        <a class="text-white text-decoration-none" href="#put">Teste PUT</a>
+        <a class="text-white text-decoration-none" href="#delete">Teste DELETE</a>
         <a class="text-white text-decoration-none" href="#conceitos">Conceitos</a>
       </div>
     </nav>
@@ -33,7 +35,7 @@
             <h2 class="h4">Tudo o que foi estudado reunido</h2>
             <div class="row g-3">
               <div class="col-md-3"><strong>O que é:</strong><br>uma interface que reage a ações e conversa com uma API.</div>
-              <div class="col-md-3"><strong>O que faz:</strong><br>valida formulário, mostra feedback e executa GET e POST.</div>
+              <div class="col-md-3"><strong>O que faz:</strong><br>valida formulário, mostra feedback e executa GET, POST, PUT e DELETE.</div>
               <div class="col-md-3"><strong>Para que serve:</strong><br>demonstrar o fluxo de uma aplicação web básica.</div>
               <div class="col-md-3"><strong>O que observar:</strong><br>cada seção possui HTML, Bootstrap e JavaScript conectados.</div>
             </div>
@@ -185,6 +187,82 @@
       </div>
     </section>
 
+    <section id="put" class="py-5 bg-white border-top">
+      <div class="container">
+        <div class="row align-items-start g-4">
+          <div class="col-lg-5">
+            <span class="badge text-bg-info mb-2">Parte 4</span>
+            <h2 class="h3">Teste real com PUT</h2>
+            <p class="text-secondary">
+              Atualize um post existente. O ID vai na URL e os novos dados são
+              enviados no corpo da requisição em JSON.
+            </p>
+            <p class="small text-secondary font-monospace text-break">
+              PUT https://jsonplaceholder.typicode.com/posts/{id}
+            </p>
+            <form id="form-put" novalidate>
+              <div class="mb-3">
+                <label for="put-id" class="form-label">ID do post</label>
+                <input id="put-id" type="number" min="1" class="form-control" value="1">
+              </div>
+              <div class="mb-3">
+                <label for="put-title" class="form-label">Novo título</label>
+                <input id="put-title" type="text" class="form-control" value="Post atualizado">
+                <div class="invalid-feedback">Digite um título.</div>
+              </div>
+              <div class="mb-3">
+                <label for="put-body" class="form-label">Novo conteúdo</label>
+                <textarea id="put-body" class="form-control" rows="3">Conteúdo atualizado usando PUT.</textarea>
+                <div class="invalid-feedback">Digite um conteúdo.</div>
+              </div>
+              <button type="submit" class="btn btn-info">Enviar PUT</button>
+            </form>
+          </div>
+          <div class="col-lg-7">
+            <div class="card shadow-sm border-info">
+              <div class="card-header text-bg-info">Retorno da atualização</div>
+              <div class="card-body">
+                <pre id="put-output" class="mb-0 small text-wrap">Envie o formulário para visualizar o retorno.</pre>
+              </div>
+            </div>
+            <div id="put-status" class="alert d-none mt-3" role="status"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="delete" class="py-5 bg-light border-top">
+      <div class="container">
+        <div class="row align-items-start g-4">
+          <div class="col-lg-5">
+            <span class="badge text-bg-danger mb-2">Parte 5</span>
+            <h2 class="h3">Teste real com DELETE</h2>
+            <p class="text-secondary">
+              Solicite a exclusão de um post pelo ID. A JSONPlaceholder simula
+              a resposta e não altera uma base permanente.
+            </p>
+            <p class="small text-secondary font-monospace text-break">
+              DELETE https://jsonplaceholder.typicode.com/posts/{id}
+            </p>
+            <form id="form-delete">
+              <label for="delete-id" class="form-label">ID do post</label>
+              <input id="delete-id" type="number" min="1" class="form-control mb-3" value="1">
+              <button type="submit" class="btn btn-danger">Enviar DELETE</button>
+            </form>
+          </div>
+          <div class="col-lg-7">
+            <div class="card shadow-sm border-danger">
+              <div class="card-header text-bg-danger">Retorno da exclusão</div>
+              <div class="card-body">
+                <pre id="delete-output" class="mb-0 small text-wrap">Envie o formulário para visualizar o retorno.</pre>
+              </div>
+            </div>
+            <div id="delete-status" class="alert d-none mt-3" role="status"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="conceitos" class="py-5 bg-dark text-white">
       <div class="container">
         <span class="badge text-bg-success mb-2">Resumo</span>
@@ -196,6 +274,8 @@
           <div class="col"><div class="card h-100 border-0"><div class="card-body text-dark"><h3 class="h5">JSON</h3><p class="mb-0">Formato usado para representar e transportar dados.</p></div></div></div>
           <div class="col"><div class="card h-100 border-0"><div class="card-body text-dark"><h3 class="h5">GET</h3><p class="mb-0">Método normalmente usado para consultar informações.</p></div></div></div>
           <div class="col"><div class="card h-100 border-0"><div class="card-body text-dark"><h3 class="h5">POST</h3><p class="mb-0">Método normalmente usado para enviar informações.</p></div></div></div>
+          <div class="col"><div class="card h-100 border-0"><div class="card-body text-dark"><h3 class="h5">PUT</h3><p class="mb-0">Método usado para atualizar um recurso existente.</p></div></div></div>
+          <div class="col"><div class="card h-100 border-0"><div class="card-body text-dark"><h3 class="h5">DELETE</h3><p class="mb-0">Método usado para solicitar a exclusão de um recurso.</p></div></div></div>
         </div>
       </div>
     </section>

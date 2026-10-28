@@ -184,8 +184,105 @@ formularioPost.addEventListener("submit", function (evento) {
     });
 });
 
-// Desafios para a turma:
-// 1. Buscar /users/1 em vez de /posts/1.
-// 2. Adicionar um campo de telefone ao formulario.
-// 3. Mostrar o curso escolhido na mensagem de sucesso.
-// 4. Criar um botao para limpar o retorno do POST.
+// ============================================================
+// TESTE REAL DE PUT COM JSONPlaceholder
+// ============================================================
+
+const formularioPut = document.querySelector("#form-put");
+const campoIdPut = document.querySelector("#put-id");
+const campoTituloPut = document.querySelector("#put-title");
+const campoConteudoPut = document.querySelector("#put-body");
+const saidaPut = document.querySelector("#put-output");
+const statusPut = document.querySelector("#put-status");
+
+formularioPut.addEventListener("submit", function (evento) {
+  evento.preventDefault();
+
+  const id = campoIdPut.value;
+  const titulo = campoTituloPut.value.trim();
+  const conteudo = campoConteudoPut.value.trim();
+
+  if (id === "" || titulo === "" || conteudo === "") {
+    mostrarMensagem(statusPut, "Preencha o ID, o título e o conteúdo.", "danger");
+    return;
+  }
+
+  const postAtualizado = {
+    id: Number(id),
+    title: titulo,
+    body: conteudo,
+    userId: 1,
+  };
+
+  mostrarMensagem(statusPut, "Enviando PUT...", "info");
+  saidaPut.textContent = "Aguarde...";
+
+  fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+    // method define a operação HTTP realizada pela requisição.
+    method: "PUT",
+    headers: {
+      // A API precisa saber que o body está no formato JSON.
+      "Content-type": "application/json; charset=UTF-8",
+    },
+    // JSON.stringify transforma o objeto JavaScript em texto JSON.
+    body: JSON.stringify(postAtualizado),
+  })
+    .then(function (resposta) {
+      if (!resposta.ok) {
+        throw new Error("Não foi possível atualizar o post.");
+      }
+
+      return resposta.json();
+    })
+    .then(function (dados) {
+      saidaPut.textContent = JSON.stringify(dados, null, 2);
+      mostrarMensagem(statusPut, `Post ${id} atualizado com sucesso.`, "success");
+    })
+    .catch(function (erro) {
+      saidaPut.textContent = erro.message;
+      mostrarMensagem(statusPut, "Ocorreu um erro no PUT.", "danger");
+    });
+});
+
+// ============================================================
+// TESTE REAL DE DELETE COM JSONPlaceholder
+// ============================================================
+
+const formularioDelete = document.querySelector("#form-delete");
+const campoIdDelete = document.querySelector("#delete-id");
+const saidaDelete = document.querySelector("#delete-output");
+const statusDelete = document.querySelector("#delete-status");
+
+formularioDelete.addEventListener("submit", function (evento) {
+  evento.preventDefault();
+
+  const id = campoIdDelete.value;
+
+  if (id === "") {
+    mostrarMensagem(statusDelete, "Informe o ID que será excluído.", "danger");
+    return;
+  }
+
+  mostrarMensagem(statusDelete, "Enviando DELETE...", "info");
+  saidaDelete.textContent = "Aguarde...";
+
+  fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+    method: "DELETE",
+  })
+    .then(function (resposta) {
+      if (!resposta.ok) {
+        throw new Error("Não foi possível excluir o post.");
+      }
+
+      // DELETE pode retornar uma resposta sem corpo JSON.
+      return resposta;
+    })
+    .then(function () {
+      saidaDelete.textContent = `Exclusão simulada do post ${id} confirmada pela API.`;
+      mostrarMensagem(statusDelete, "DELETE realizado com sucesso.", "success");
+    })
+    .catch(function (erro) {
+      saidaDelete.textContent = erro.message;
+      mostrarMensagem(statusDelete, "Ocorreu um erro no DELETE.", "danger");
+    });
+});
